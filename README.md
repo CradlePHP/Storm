@@ -10,7 +10,7 @@ A Search Collection Model Kind of SQL Client
 - [Collection](#collection)
 - [Putting it Together](#together)
 - [Contributing](#contributing)
-
+ 
 ----
 
 <a name="install"></a>
@@ -80,7 +80,7 @@ $filter[] = ['user_id=%s', 1];
 
 // inserts row into 'user' table
 $database->insertRow('user', $settings);
-// updates rows in 'user' table where user_id is 
+// updates rows in 'user' table where user_id is
 $database->updateRows('user', $settings, $filter);
 // delete rows in 'user' table where user_id is 1
 $database->deleteRows('user', $filter);      
@@ -93,14 +93,14 @@ Inserting data is pretty trivial. We included 2 ways to insert data. Like getRow
 ```php
 $settings = ['user_name' => 'Chris', 'user_email' => 'myemail@mail.com'];
 // insert row into 'user' table
-$database->insertRow('user', $settings); 
- 
+$database->insertRow('user', $settings);
+
 $settings = [];
 $settings[] = ['user_name' => 'Chris', 'user_email' => 'myemail@mail.com'];
 $settings[] = ['user_name' => 'Dan', 'user_email' => 'myemail2@mail.com'];
 $settings[] = ['user_name' => 'Clark', 'user_email' => 'myemail3@mail.com'];
 // insert multiple rows into 'user' table
-$database->insertRows('user', $settings); 
+$database->insertRows('user', $settings);
 ```
 
 So obviously `insertRow()` should be used if you just want to insert one row. Inserting two or more rows at the same time, you should use `insertRows()`. This method expects an array of arrays, or an array table.
@@ -117,7 +117,7 @@ Updating is about as easy as inserting. There's only one method you need to know
 $settings = ['user_name' => 'Chris', 'user_email' => 'myemail@mail.com'];
 $filter[] = ['user_id=%s', 1];
 // update row into 'user' table
-$database->updateRows('user', $settings, $filter); 
+$database->updateRows('user', $settings, $filter);
 ```
 
 A common scenario is when you need to insert if a column value is not found and update if it is. We added an extra method called `setRow()` to simply to save you some lines of redundancy.
@@ -136,7 +136,7 @@ $database->setRow('user', 'user_email', 'myemail@mail.com', $settings);
 ```php
 $filter[] = ['user_id=%s', 1];
 // delete rows in 'user' table where user_id is 1
-$database->deleteRows('user', $filter); 
+$database->deleteRows('user', $filter);
 ```
 
 ----
@@ -217,7 +217,7 @@ $database->getRows();
 $database->getCollection();
 ```
 
-`Figure 10` shows three ways to get the results, the first way `getTotal()`, will retrieve the total number and does not consider pagination elements. `getRows()` will simply return a raw array. `getCollection()` will return you an object with the results for further manipulation. 
+`Figure 10` shows three ways to get the results, the first way `getTotal()`, will retrieve the total number and does not consider pagination elements. `getRows()` will simply return a raw array. `getCollection()` will return you an object with the results for further manipulation.
 
 ----
 
@@ -240,11 +240,11 @@ foreach($collection as $model) {
     echo $model->getUserName().' ';
     echo $model['user_email'];
 }
- 
+
 //access as array
 echo $collection[0]['user_name'];
 //set as array
-$collection[0]['user_email'] = 'my@email.com'; 
+$collection[0]['user_email'] = 'my@email.com';
 
 //save to 'user' table in database
 //only relevant columns will be saved
@@ -258,7 +258,7 @@ Some other utility methods not covered by the above examples are date formatting
 
 ```php
 //formats a date column
-$collection->formatTime('post_created', 'F d, y g:ia'); 
+$collection->formatTime('post_created', 'F d, y g:ia');
 
 //for each row, copy the value of post_user to the user_id column
 $collection->copy('post_user', 'user_id');
@@ -288,18 +288,18 @@ We managed to loosely define models which takes off the restrictiveness of a nor
 ```php
 $model->setUserName('Chris'); //set user name
 $model->getUserEmail(); // returns user email
- 
+
 //$model->setAnyThing() // set or get any abstract key
- 
+
 echo $model['user_name']; //access as array
 $model['user_email'] = 'my@email.com'; //set as array
- 
+
 echo $model->user_name; //access as object
 $model->user_name = 'my@email.com'; //set as object
 
 //save to 'user' table in database
 //only relevant columns will be saved
-$model->save('user', $database); 
+$model->save('user', $database);
 ```
 
 So model properties can be accessed by method, object or array. The preference we leave up to you. With our model, you can put extra key values in the object, even if it has nothing to do with the intended database table. When you call `save()`, this is when you need to specify the table your saving to. This method is really powerful, in that it will first check to see what columns exist in the table then compares it with your model. It will only save columns that have the matching column name in your object. Lastly it will auto determine whether if we should insert or update that row.
@@ -317,7 +317,7 @@ $row = [
     'post_title'    => 'My Post',
     'post_detail'   => 'This is my new article'
 ];
-     
+
 $database->model($row)->save('user')->save('post');
 ```
 
