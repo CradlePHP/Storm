@@ -10,7 +10,7 @@ A Search Collection Model Kind of SQL Client
 - [Collection](#collection)
 - [Putting it Together](#together)
 - [Contributing](#contributing)
- 
+
 ----
 
 <a name="install"></a>
