@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit backupGlobals="false"
+         backupStaticAttributes="false"
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         stopOnFailure="false"
+         syntaxCheck="false"
+         bootstrap="test/bootstrap.php"
+>
+  <testsuites>
+    <testsuite name="CradlePHP Storm Test Suite">
+      <file>test/AbstractQuery.php</file>
+      <file>test/AbstractSql.php</file>
+      <file>test/Collection.php</file>
+      <file>test/Model.php</file>
+      <file>test/Search.php</file>
+      <file>test/QueryDelete.php</file>
+      <file>test/QueryInsert.php</file>
+      <file>test/QuerySelect.php</file>
+      <file>test/QueryUpdate.php</file>
+      <file>test/SqlException.php</file>
+      <file>test/MySql/QueryAlter.php</file>
+      <file>test/MySql/QueryCreate.php</file>
+      <file>test/MySql/QuerySubSelect.php</file>
+      <file>test/MySql/QueryUtility.php</file>
+      <file>test/PostGreSql/QueryAlter.php</file>
+      <file>test/PostGreSql/QueryCreate.php</file>
+      <file>test/PostGreSql/QueryDelete.php</file>
+      <file>test/PostGreSql/QueryInsert.php</file>
+      <file>test/PostGreSql/QuerySelect.php</file>
+      <file>test/PostGreSql/QueryUpdate.php</file>
+      <file>test/PostGreSql/QueryUtility.php</file>
+      <file>test/Sqlite/QueryAlter.php</file>
+      <file>test/Sqlite/QueryCreate.php</file>
+      <file>test/Sqlite/QueryUtility.php</file>
+      <file>test/MySql.php</file>
+      <file>test/PostGreSql.php</file>
+      <file>test/Sqlite.php</file>
+      <file>test/SqlFactory.php</file>
+    </testsuite>
+  </testsuites>
+
+  <filter>
+    <whitelist>
+      <directory suffix=".php">./src</directory>
+      <exclude>
+        <directory>./vendor</directory>
+        <directory>./test</directory>
+        <file>src/SqlInterface.php</file>
+      </exclude>
+    </whitelist>
+  </filter>
+</phpunit>
