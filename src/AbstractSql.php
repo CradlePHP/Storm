@@ -45,7 +45,7 @@ abstract class AbstractSql
         StateTrait
         {
             StateTrait::__callResolver as __call;
-        }
+    }
 
     /**
      * @const int INSTANCE Flag that designates multiton when using ::i()
