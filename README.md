@@ -1,6 +1,13 @@
 # Storm
 A Search Collection Model Kind of SQL Client
 
+[![Travis CI](https://travis-ci.org/CradlePHP/storm.svg?branch=master)](https://travis-ci.org/CradlePHP/storm)
+[![Coverage Status](https://coveralls.io/repos/github/CradlePHP/storm/badge.svg?branch=master)](https://coveralls.io/github/CradlePHP/storm?branch=master)
+[![Latest Stable Version](https://poser.pugx.org/cradlephp/storm/v/stable)](https://packagist.org/packages/cradlephp/storm)
+[![Total Downloads](https://poser.pugx.org/cradlephp/storm/downloads)](https://packagist.org/packages/cradlephp/storm)
+[![Latest Unstable Version](https://poser.pugx.org/cradlephp/storm/v/unstable)](https://packagist.org/packages/cradlephp/storm)
+[![License](https://poser.pugx.org/cradlephp/storm/license)](https://packagist.org/packages/cradlephp/storm)
+
 - [Install](#install)
 - [Introduction](#intro)
 - [Basic Querying](#basic)
