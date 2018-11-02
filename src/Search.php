@@ -263,6 +263,49 @@ class Search
     }
 
     /**
+     * Builds query based on the data given
+     *
+     * @return string
+     */
+    public function getQuery()
+    {
+        $query = $this->database->getSelectQuery()->from($this->table);
+
+        foreach ($this->join as $join) {
+            if (!is_array($join[2])) {
+                $join[2] = [$join[2]];
+            }
+
+            $where = array_shift($join[2]);
+            if (!empty($join[2])) {
+                foreach ($join[2] as $i => $value) {
+                    $join[2][$i] = $this->database->bind($value);
+                }
+
+                $where = vsprintf($where, $join[2]);
+            }
+
+            $query->join($join[0], $join[1], $where, $join[3]);
+        }
+
+        foreach ($this->filter as $i => $filter) {
+            //array('post_id=%s AND post_title IN %s', 123, array('asd'));
+            $where = array_shift($filter);
+            if (!empty($filter)) {
+                foreach ($filter as $i => $value) {
+                    $filter[$i] = $this->database->bind($value);
+                }
+
+                $where = vsprintf($where, $filter);
+            }
+
+            $query->where($where);
+        }
+
+        return $query;
+    }
+
+    /**
      * Returns the one result
      *
      * @param int         $index  Row index to return
@@ -329,23 +372,6 @@ class Search
     }
 
     /**
-     * Group by clause
-     *
-     * @param string $group Column name
-     *
-     * @return Search
-     */
-    public function groupBy($group)
-    {
-        if (is_string($group)) {
-            $group = [$group];
-        }
-
-        $this->group = $group;
-        return $this;
-    }
-
-    /**
      * Returns the total results
      *
      * @return int
@@ -361,6 +387,23 @@ class Search
         }
 
         return $rows[0]['total'];
+    }
+
+    /**
+     * Group by clause
+     *
+     * @param string $group Column name
+     *
+     * @return Search
+     */
+    public function groupBy($group)
+    {
+        if (is_string($group)) {
+            $group = [$group];
+        }
+
+        $this->group = $group;
+        return $this;
     }
 
     /**
@@ -611,48 +654,5 @@ class Search
     {
         $this->table = $table;
         return $this;
-    }
-
-    /**
-     * Builds query based on the data given
-     *
-     * @return string
-     */
-    protected function getQuery()
-    {
-        $query = $this->database->getSelectQuery()->from($this->table);
-
-        foreach ($this->join as $join) {
-            if (!is_array($join[2])) {
-                $join[2] = [$join[2]];
-            }
-
-            $where = array_shift($join[2]);
-            if (!empty($join[2])) {
-                foreach ($join[2] as $i => $value) {
-                    $join[2][$i] = $this->database->bind($value);
-                }
-
-                $where = vsprintf($where, $join[2]);
-            }
-
-            $query->join($join[0], $join[1], $where, $join[3]);
-        }
-
-        foreach ($this->filter as $i => $filter) {
-            //array('post_id=%s AND post_title IN %s', 123, array('asd'));
-            $where = array_shift($filter);
-            if (!empty($filter)) {
-                foreach ($filter as $i => $value) {
-                    $filter[$i] = $this->database->bind($value);
-                }
-
-                $where = vsprintf($where, $filter);
-            }
-
-            $query->where($where);
-        }
-
-        return $query;
     }
 }
