@@ -97,7 +97,9 @@ abstract class AbstractSql
 
             return '('.implode(",", $value).')';
         } else if (is_int($value) || ctype_digit($value)) {
-            return $value;
+            if (strpos($value, '0') !== 0) {
+                return $value;
+            }
         }
 
         $name = ':bind'.count($this->binds).'bind';
