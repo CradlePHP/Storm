@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Cradle\Storm;
 
@@ -9,37 +9,34 @@ use PHPUnit\Framework\TestCase;
  */
 class Cradle_Storm_SqlFactory_Test extends TestCase
 {
-    /**
-     * Sets up the fixture, for example, opens a network connection.
-     * This method is called before a test is executed.
-     */
-    protected function setUp()
-    {
-    }
+  /**
+   * Sets up the fixture, for example, opens a network connection.
+   * This method is called before a test is executed.
+   */
+  protected function setUp()
+  {
+  }
 
-    /**
-     * Tears down the fixture, for example, closes a network connection.
-     * This method is called after a test is executed.
-     */
-    protected function tearDown()
-    {
-    }
+  /**
+   * Tears down the fixture, for example, closes a network connection.
+   * This method is called after a test is executed.
+   */
+  protected function tearDown()
+  {
+  }
 
-    /**
-     * @covers Cradle\Storm\SqlFactory::load
-     */
-    public function testLoad()
-    {
-		$mysql = SqlFactory::load(include(__DIR__.'/assets/mysql.php'));
-		
-		$this->assertInstanceOf('Cradle\Storm\MySql', $mysql);
-		
-		$pgsql = SqlFactory::load(include(__DIR__.'/assets/pgsql.php'));
-		
-		$this->assertInstanceOf('Cradle\Storm\PostGreSql', $pgsql);
-		
-		$sqlite = SqlFactory::load(include(__DIR__.'/assets/sqlite.php'));
-		
-		$this->assertInstanceOf('Cradle\Storm\Sqlite', $sqlite);
-    }
+  /**
+   * @covers Cradle\Storm\SqlFactory::load
+   */
+  public function testLoad()
+  {
+    $mysql = SqlFactory::load(include(__DIR__.'/assets/mysql.php'));
+    $this->assertInstanceOf('Cradle\Storm\Engine\MySql', $mysql);
+
+    //$pgsql = SqlFactory::load(include(__DIR__.'/assets/pgsql.php'));
+    //$this->assertInstanceOf('Cradle\Storm\Engine\PostGreSql', $pgsql);
+
+    $sqlite = SqlFactory::load(include(__DIR__.'/assets/sqlite.php'));
+    $this->assertInstanceOf('Cradle\Storm\Engine\Sqlite', $sqlite);
+  }
 }

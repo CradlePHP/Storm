@@ -79,18 +79,18 @@ Figure 4. Data Manipulation
 
 ```php
 $settings = [
-    'user_name'     => 'Chris'
-    'user_email'    => 'myemail@mail.com'
+  'user_name'   => 'Chris'
+  'user_email'  => 'myemail@mail.com'
 ];
 
-$filter[] = ['user_id=%s', 1];     
+$filter[] = ['user_id=%s', 1];   
 
 // inserts row into 'user' table
 $database->insertRow('user', $settings);
 // updates rows in 'user' table where user_id is
 $database->updateRows('user', $settings, $filter);
 // delete rows in 'user' table where user_id is 1
-$database->deleteRows('user', $filter);      
+$database->deleteRows('user', $filter);    
 ```
 
 Inserting data is pretty trivial. We included 2 ways to insert data. Like getRow(), there's no need to worry about bound data because Storm will do this for you. Figure 4 shows the 2 kind of inserts mentioned.
@@ -157,17 +157,17 @@ A better way to build complex queries is with using the search object. An overvi
 
 ```php
 $database
-    ->search('user')
-    ->setColumns('*')
-    ->innerJoinOn('group', 'group_owner=user_id')
-    ->leftJoinUsing('friends', 'user_id')
-    ->filterByUserName('Chris')
-    ->addFilter("user_last LIKE '%s%%'", 'Brown')
-    ->sortByUserId('ASC')
-    ->addSort('user_last', 'DESC')
-    ->setRange(25)
-    ->setStart(75)
-    ->getRows();
+  ->search('user')
+  ->setColumns('*')
+  ->innerJoinOn('group', 'group_owner=user_id')
+  ->leftJoinUsing('friends', 'user_id')
+  ->filterByUserName('Chris')
+  ->addFilter("user_last LIKE '%s%%'", 'Brown')
+  ->sortByUserId('ASC')
+  ->addSort('user_last', 'DESC')
+  ->setRange(25)
+  ->setStart(75)
+  ->getRows();
 ```
 
 In the figure above there's a few methods being powered with magic, but we'll just start going down the line. First off, to instantiate the search object you simply need to call `search()` passing the name of the table as the argument. Secondly we call `setColumns()`. This call is optional, but if used, can either accept an array of columns or an argument separated list of columns, ie. `setColumns('user_id', 'user_name')`. Next, `innerJoinOn()` is the new way we accept joins. There are eight methods dedicated to different kinds of joins.
@@ -243,9 +243,9 @@ $collection->setUserName('Chris');
 $collection->setAnyThing()
 
 //collections are iterable
-foreach($collection as $model) {        
-    echo $model->getUserName().' ';
-    echo $model['user_email'];
+foreach($collection as $model) {    
+  echo $model->getUserName().' ';
+  echo $model['user_email'];
 }
 
 //access as array
@@ -280,7 +280,7 @@ $collection->count();
 $collection->add(['post_title' => 'Hi']);
 
 //returns a table array (no objects)
-$collection->get();                                      
+$collection->get();                    
 ```
 
 ----
@@ -317,12 +317,12 @@ A common example is when you have an array table that comprises of joined data. 
 
 ```php
 $row = [
-    'user_id'       => 1,
-    'user_name'     => 'Chris',
-    'user_email'    => 'my@email.com',
-    'post_user'     => 1,
-    'post_title'    => 'My Post',
-    'post_detail'   => 'This is my new article'
+  'user_id'     => 1,
+  'user_name'   => 'Chris',
+  'user_email'  => 'my@email.com',
+  'post_user'   => 1,
+  'post_title'  => 'My Post',
+  'post_detail'   => 'This is my new article'
 ];
 
 $database->model($row)->save('user')->save('post');
@@ -342,29 +342,29 @@ So a common scenario would be retrieving data, manipulating the results and send
 ```php
 //load database
 $database
-    //search user table
-    ->search('user')
-    //WHERE user_gender = $_get['gender']
-    ->filterByUserGender($_GET['gender'])
-    //ORDER BY user_id
-    ->sortByUserId('ASC')
-    //LIMIT 75, 25
-    ->setStart(75)->setRange(25)
-    //get a collection object
-    ->getCollection()
-    //sets all users to active
-    ->setUserActive(1)
-    //Set a new column post_title
-    ->setPostTitle('A '.$_GET['gender'].'\'s Post')
-    //Set a new column post_detail
-    ->setPostDetail('Content is King')
-    //Copy the contents of user_id to a new column post_user
-    ->copy('user_id', 'post_user')
-    //Set a new column post_created
-    ->setPostCreated(time())
-    ->formatTime('post_created', 'Y-m-d H:i:s')
-    //save to user table
-    ->save('user')
-    //save to post table
-    ->save('post');
+  //search user table
+  ->search('user')
+  //WHERE user_gender = $_get['gender']
+  ->filterByUserGender($_GET['gender'])
+  //ORDER BY user_id
+  ->sortByUserId('ASC')
+  //LIMIT 75, 25
+  ->setStart(75)->setRange(25)
+  //get a collection object
+  ->getCollection()
+  //sets all users to active
+  ->setUserActive(1)
+  //Set a new column post_title
+  ->setPostTitle('A '.$_GET['gender'].'\'s Post')
+  //Set a new column post_detail
+  ->setPostDetail('Content is King')
+  //Copy the contents of user_id to a new column post_user
+  ->copy('user_id', 'post_user')
+  //Set a new column post_created
+  ->setPostCreated(time())
+  ->formatTime('post_created', 'Y-m-d H:i:s')
+  //save to user table
+  ->save('user')
+  //save to post table
+  ->save('post');
 ```
