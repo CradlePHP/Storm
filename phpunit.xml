@@ -14,6 +14,7 @@
   <testsuites>
     <testsuite name="Storm Factory Tests">
       <file>test/SqlFactory.php</file>
+      <file>test/SqlException.php</file>
     </testsuite>
     <testsuite name="Storm Query Tests">
       <file>test/Query/AbstractQuery.php</file>
@@ -46,7 +47,7 @@
     <testsuite name="Storm Engine Tests">
       <file>test/Engine/AbstractEngine.php</file>
       <file>test/Engine/MySql.php</file>
-      <!--<file>test/Engine/PostGreSql.php</file>-->
+      <file>test/Engine/PostGreSql.php</file>
       <file>test/Engine/Sqlite.php</file>
     </testsuite>
   </testsuites>
