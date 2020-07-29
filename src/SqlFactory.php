@@ -11,29 +11,33 @@ namespace Cradle\Storm;
 
 use PDO;
 
+use Cradle\Storm\Engine\MySql;
+use Cradle\Storm\Engine\PostGreSql;
+use Cradle\Storm\Engine\Sqlite;
+
 /**
  * Auto loads up the right handler given the PDO connection
  *
- * @package  Cradle
+ * @package  Storm
  * @category Sql
  * @author   Christian Blanquera <cblanquera@openovate.com>
  * @standard PSR-2
  */
 class SqlFactory
 {
-    public static function load(PDO $connection)
-    {
-        $name = $connection->getAttribute(PDO::ATTR_DRIVER_NAME);
-        
-        switch ($name) {
-            case 'mysql':
-                return MySql::loadPDO($connection);
-            case 'pgsql':
-                return PostGreSql::loadPDO($connection);
-            case 'sqlite':
-                return Sqlite::loadPDO($connection);
-            default:
-                throw SqlException::forUnknownPDO($name);
-        }
+  public static function load(PDO $connection)
+  {
+    $name = $connection->getAttribute(PDO::ATTR_DRIVER_NAME);
+
+    switch ($name) {
+      case 'mysql':
+        return MySql::loadPDO($connection);
+      case 'pgsql':
+        return PostGreSql::loadPDO($connection);
+      case 'sqlite':
+        return Sqlite::loadPDO($connection);
+      default:
+        throw SqlException::forUnknownPDO($name);
     }
+  }
 }
