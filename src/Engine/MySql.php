@@ -308,21 +308,32 @@ class MySql extends AbstractEngine implements EngineInterface
   /**
    * Removes data that is not a column of the table
    *
-   * @param *string $table The name of the table
-   * @param *array  $data  The raw data to clean
+   * @param *string $table        The name of the table
+   * @param *array  $data         The raw data to clean
+   * @param bool    $withPrimary  whether to include primary keys
    *
    * @return array
    */
-  public function getValidData(string $table, array $data): array
+  public function getValidData(
+    string $table,
+    array $data,
+    bool $withPrimary = false
+  ): array
   {
     $columns = $this->getColumns($table);
 
     $valid = [];
     foreach ($columns as $i => $column) {
       $name = $column['Field'];
-      if (isset($data[$name])) {
-        $valid[$name] = $data[$name];
+      if (!$withPrimary && $column['Key'] === 'PRI') {
+        continue;
       }
+
+      if (!isset($data[$name])) {
+        continue;
+      }
+
+      $valid[$name] = $data[$name];
     }
 
     return $valid;
